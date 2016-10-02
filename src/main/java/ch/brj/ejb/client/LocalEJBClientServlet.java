@@ -3,9 +3,11 @@ package ch.brj.ejb.client;
 
 import ch.brj.ejb.StatefulSession1Bean;
 import ch.brj.ejb.StatelessSessionRemote;
-import ch.brj.ejb.StatelessSessionRemoteBean;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +32,18 @@ public class LocalEJBClientServlet extends HttpServlet {
     @EJB
     private StatelessSessionRemote mRemoteSessionBean;
 
+    private StatelessSessionRemote slBean;
+
+    @PostConstruct
+    public void initialize() {
+        try {
+            InitialContext theInitialContext = new InitialContext();
+            slBean = (StatelessSessionRemote) theInitialContext.lookup("java:module/StatelessSessionRemoteBean");
+        } catch (NamingException theException) {
+            theException.printStackTrace();
+        }
+    }
+
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
@@ -43,6 +57,9 @@ public class LocalEJBClientServlet extends HttpServlet {
 
         String theResponse2 = mRemoteSessionBean.greeting("Anonymous 2");
         theResponseWriter.println("Response from the StatelessSessionRemoteBean EJB: " + theResponse2);
+
+        String theResponse3 = slBean.greeting("Anonymous 3");
+        theResponseWriter.println("Response from looked up StatelessSessionRemoteBean EJB: " + theResponse3);
 
 /* Process a list to examine parameter passing semantics. */
         List<String> theList = new ArrayList<String>();
