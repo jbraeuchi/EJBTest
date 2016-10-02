@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="EJBTest:ear">
+    <output-path>$PROJECT_DIR$/out/artifacts/EJBTest.ear</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="EJBTest/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="web.war">
+        <element id="artifact" artifact-name="EJBTest:war exploded" />
+      </element>
+    </root>
+  </artifact>
+</component>
