@@ -11,6 +11,9 @@ import java.util.Properties;
  */
 public class CallEJB {
 
+    // ejb:
+    // The ejb: namespace is provided by the jboss-ejb-client library. This protocol allows you to look up EJB's,
+    // using their application name, module name, ejb name and interface type.
     //
     // For stateless beans:
     // ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>
