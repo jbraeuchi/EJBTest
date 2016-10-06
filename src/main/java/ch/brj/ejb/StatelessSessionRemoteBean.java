@@ -1,7 +1,9 @@
 package ch.brj.ejb;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Remote;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import java.util.Date;
 
@@ -13,6 +15,11 @@ public class StatelessSessionRemoteBean implements StatelessSessionRemote {
     @PostConstruct
     public void initialize() {
         System.out.println("*** StatelessSessionRemoteBean created.");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("*** StatelessSessionRemoteBean destroyed.");
     }
 
     /**
@@ -28,4 +35,8 @@ public class StatelessSessionRemoteBean implements StatelessSessionRemote {
         return theMessage;
     }
 
+    @Schedule(hour = "*", minute = "*")
+    public void timer() {
+        System.out.println("*** Timer fired ");
+    }
 }
